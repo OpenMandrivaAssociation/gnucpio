@@ -1,20 +1,13 @@
-%define name cpio
-%define version 2.7
-%define release %mkrel 3
-
 Summary:	A GNU archiving program
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		cpio
+Version:	2.8
+Release:	%mkrel 1
 License:	GPL
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/cpio/
 Source:		ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
 Patch3:		cpio-2.7-svr4compat.patch
-Patch10:	cpio-2.6-i18n.patch
-Patch11:	cpio-2.7-fix-copypass-perms.patch
-Patch12:	cpio-2.7-fix-copyout-symlinks.patch
 Requires(post):	/sbin/install-info
 Requires(preun):/sbin/install-info
 Requires:	rmt
@@ -39,29 +32,25 @@ archives
 %prep
 %setup -q
 %patch3 -p1 -b .svr4compat
-%patch10 -p1 -b .i18n
-%patch11 -p1 -b .copypass
-%patch12 -p1 -b .copyout-symlink
-
-# needed by patch4
-autoconf
 
 %build
 %configure2_5x --bindir=/bin --with-rmt=/sbin/rmt CPPFLAGS=-DHAVE_LSTAT=1
 %make
+
+%check
 make check
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 
 %find_lang %{name}
 
 # remove unpackaged file
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/mt.*
+rm -f %{buildroot}%{_mandir}/man1/mt.*
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %post
 %_install_info %{name}.info
@@ -75,5 +64,3 @@ rm -rf $RPM_BUILD_ROOT
 /bin/cpio
 %{_infodir}/cpio.*
 %{_mandir}/man1/cpio.1*
-
-
