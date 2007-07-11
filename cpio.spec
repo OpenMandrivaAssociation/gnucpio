@@ -1,6 +1,6 @@
 Summary:	A GNU archiving program
 Name:		cpio
-Version:	2.8
+Version:	2.9
 Release:	%mkrel 1
 License:	GPL
 Group:		Archiving/Backup
