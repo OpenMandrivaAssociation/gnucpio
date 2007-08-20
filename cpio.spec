@@ -8,8 +8,8 @@ URL:		http://www.gnu.org/software/cpio/
 Source:		ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
 Patch3:		cpio-2.7-svr4compat.patch
-Requires(post):	/sbin/install-info
-Requires(preun):/sbin/install-info
+Requires(post):	info-install
+Requires(preun):info-install
 Requires:	rmt
 BuildRequires:	texinfo
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
