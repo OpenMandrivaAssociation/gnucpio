@@ -13,7 +13,6 @@ Requires(post):	info-install
 Requires(preun):info-install
 Requires:	rmt
 BuildRequires:	texinfo
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 GNU cpio copies files into or out of a cpio or tar archive.  Archives
