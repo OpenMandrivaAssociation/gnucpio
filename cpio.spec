@@ -1,7 +1,7 @@
 Summary:	A GNU archiving program
 Name:		cpio
 Version:	2.9
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/cpio/
@@ -9,8 +9,9 @@ Source:		ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
 Patch3:		cpio-2.7-svr4compat.patch
 Patch4:		cpio-2.7-CVE-2007-4476.patch
+Patch6:		cpio-2.9-gcc43.patch
 Requires(post):	info-install
-Requires(preun):info-install
+Requires(preun): info-install
 Requires:	rmt
 BuildRequires:	texinfo
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -31,9 +32,11 @@ Install cpio if you need a program to manage file archives.
 archives
 
 %prep
+
 %setup -q
 %patch3 -p1 -b .svr4compat
 %patch4 -p1 -b .cve-2007-4476
+%patch6 -p1 -b .gcc43
 
 %build
 %configure2_5x --bindir=/bin --with-rmt=/sbin/rmt CPPFLAGS=-DHAVE_LSTAT=1
