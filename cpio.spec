@@ -1,15 +1,14 @@
 Summary:	A GNU archiving program
 Name:		cpio
-Version:	2.9
-Release:	%mkrel 6
+Version:	2.10
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/cpio/
 Source:		ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
 Patch3:		cpio-2.7-svr4compat.patch
-Patch4:		cpio-2.7-CVE-2007-4476.patch
-Patch6:		cpio-2.9-gcc43.patch
+BuildRequires:	bison
 Requires(post):	info-install
 Requires(preun): info-install
 Requires:	rmt
@@ -35,11 +34,14 @@ archives
 
 %setup -q
 %patch3 -p1 -b .svr4compat
-%patch4 -p1 -b .cve-2007-4476
-%patch6 -p1 -b .gcc43
 
 %build
-%configure2_5x --bindir=/bin --with-rmt=/sbin/rmt CPPFLAGS=-DHAVE_LSTAT=1
+export CPPFLAGS="%{optflags} -DHAVE_LSTAT=1"
+%configure2_5x \
+	--bindir=/bin \
+	--with-rmt=/sbin/rmt \
+	--disable-rpath
+
 %make
 
 %check
