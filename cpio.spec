@@ -1,7 +1,7 @@
 Summary:	A GNU archiving program
 Name:		cpio
 Version:	2.11
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/cpio/
@@ -9,11 +9,12 @@ Source:		ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
 Patch3:		cpio-2.7-svr4compat.patch
 BuildRequires:	bison
+%if %{mdvver} < 201200
 Requires(post):	info-install
 Requires(preun): info-install
+%endif
 Requires:	rmt
 BuildRequires:	texinfo
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 GNU cpio copies files into or out of a cpio or tar archive.  Archives
@@ -59,14 +60,15 @@ rm -f %{buildroot}%{_mandir}/man1/mt.*
 %clean
 rm -rf %{buildroot}
 
+%if %{mdvver} < 201200
 %post
 %_install_info %{name}.info
 
 %preun
 %_remove_install_info %{name}.info
+%endif
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc AUTHORS ChangeLog README NEWS
 /bin/cpio
 %{_infodir}/cpio.*
