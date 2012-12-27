@@ -1,12 +1,15 @@
 Summary:	A GNU archiving program
 Name:		cpio
 Version:	2.11
-Release:	6
+Release:	7
 License:	GPLv2+
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/cpio/
-Source:		ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
+Patch0:		cpio-2.11-no-gets.patch
+Patch1:		cpio-2.11-non-gnu-compilers.patch
+Patch2:		cpio-2.11-stat.patch
 Patch3:		cpio-2.7-svr4compat.patch
 BuildRequires:	bison
 Requires:	rmt
@@ -30,6 +33,9 @@ archives
 %prep
 
 %setup -q
+%patch0 -p1 -b .gets
+%patch1 -p0 -b .gnu
+%patch2 -p1 -b .stat
 %patch3 -p1 -b .svr4compat
 
 %build
