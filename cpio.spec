@@ -11,6 +11,7 @@ Patch0:		cpio-2.11-no-gets.patch
 Patch1:		cpio-2.11-non-gnu-compilers.patch
 Patch2:		cpio-2.11-stat.patch
 Patch3:		cpio-2.7-svr4compat.patch
+Patch4:		cpio-aarch64.patch
 BuildRequires:	bison
 BuildRequires:	texinfo
 Requires:	rmt
