@@ -1,12 +1,12 @@
 Summary:	A GNU archiving program
-Name:		cpio
+Name:		gnucpio
 Version:	2.11
-Release:	13
+Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
 Url:		http://www.gnu.org/software/cpio/
-Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2
-Source1:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
+Source0:	ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2
+Source1:	ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2.sig
 Patch0:		cpio-2.11-no-gets.patch
 Patch1:		cpio-2.11-non-gnu-compilers.patch
 Patch2:		cpio-2.11-stat.patch
@@ -28,11 +28,11 @@ compatible with older cpio programs.  When it is extracting files from
 archives, cpio automatically recognizes which kind of archive it is reading
 and can read archives created on machines with a different byte-order.
 
-Install cpio if you need a program to manage file archives.
-archives
+OpenMandriva Lx uses bsdcpio by default -- install gnucpio if you need
+the GNU implementation of cpio.
 
 %prep
-%setup -q
+%setup -qn cpio-%{version}
 %apply_patches
 
 %build
@@ -48,7 +48,7 @@ export CPPFLAGS="%{optflags} -DHAVE_LSTAT=1"
 %install
 %makeinstall_std
 
-%find_lang %{name}
+%find_lang cpio
 
 # remove unpackaged file
 rm -f %{buildroot}%{_mandir}/man1/mt.*
@@ -57,7 +57,7 @@ mv %{buildroot}%{_bindir}/cpio %{buildroot}%{_bindir}/gcpio
 mv %{buildroot}%{_mandir}/man1/cpio.1 %{buildroot}%{_mandir}/man1/gcpio.1
 
 
-%files -f %{name}.lang
+%files -f cpio.lang
 %doc AUTHORS ChangeLog README NEWS
 %{_bindir}/gcpio
 %{_infodir}/cpio.*
