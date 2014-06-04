@@ -1,7 +1,7 @@
 Summary:	A GNU archiving program
 Name:		cpio
 Version:	2.11
-Release:	12
+Release:	13
 License:	GPLv2+
 Group:		Archiving/Backup
 Url:		http://www.gnu.org/software/cpio/
@@ -38,13 +38,12 @@ archives
 %build
 export CPPFLAGS="%{optflags} -DHAVE_LSTAT=1"
 %configure2_5x \
-	--bindir=/bin \
 	--with-rmt=/sbin/rmt
 
 %make
 
 %check
-make check
+%make check
 
 %install
 %makeinstall_std
@@ -54,10 +53,13 @@ make check
 # remove unpackaged file
 rm -f %{buildroot}%{_mandir}/man1/mt.*
 
+mv %{buildroot}%{_bindir}/cpio %{buildroot}%{_bindir}/gcpio
+mv %{buildroot}%{_mandir}/man1/cpio.1 %{buildroot}%{_mandir}/man1/gcpio.1
+
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog README NEWS
-/bin/cpio
+%{_bindir}/gcpio
 %{_infodir}/cpio.*
-%{_mandir}/man1/cpio.1*
+%{_mandir}/man1/gcpio.1*
 
