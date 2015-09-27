@@ -1,12 +1,11 @@
 Summary:	A GNU archiving program
 Name:		gnucpio
-Version:	2.11
-Release:	2
+Version:	2.12
+Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
 Url:		http://www.gnu.org/software/cpio/
 Source0:	ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2
-Source1:	ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2.sig
 Patch0:		cpio-2.11-no-gets.patch
 Patch1:		cpio-2.11-non-gnu-compilers.patch
 Patch2:		cpio-2.11-stat.patch
@@ -37,7 +36,7 @@ the GNU implementation of cpio.
 
 %build
 export CPPFLAGS="%{optflags} -DHAVE_LSTAT=1"
-%configure2_5x \
+%configure \
 	--with-rmt=/sbin/rmt
 
 %make
@@ -56,10 +55,8 @@ rm -f %{buildroot}%{_mandir}/man1/mt.*
 mv %{buildroot}%{_bindir}/cpio %{buildroot}%{_bindir}/gcpio
 mv %{buildroot}%{_mandir}/man1/cpio.1 %{buildroot}%{_mandir}/man1/gcpio.1
 
-
 %files -f cpio.lang
 %doc AUTHORS ChangeLog README NEWS
 %{_bindir}/gcpio
 %{_infodir}/cpio.*
 %{_mandir}/man1/gcpio.1*
-
