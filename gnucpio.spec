@@ -32,7 +32,7 @@ the GNU implementation of cpio.
 
 %prep
 %setup -qn cpio-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 export CPPFLAGS="%{optflags} -DHAVE_LSTAT=1"
