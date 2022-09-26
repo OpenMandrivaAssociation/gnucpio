@@ -1,16 +1,23 @@
 Summary:	A GNU archiving program
 Name:		gnucpio
-Version:	2.12
+Version:	2.13
 Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
 Url:		http://www.gnu.org/software/cpio/
 Source0:	ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2
-Patch0:		cpio-2.11-no-gets.patch
-Patch1:		cpio-2.11-non-gnu-compilers.patch
-Patch2:		cpio-2.11-stat.patch
-Patch3:		cpio-2.7-svr4compat.patch
-Patch4:		cpio-aarch64.patch
+Patch0:		cpio-2.13-fix-clang.patch
+Patch1:		0001-Fix-cpio-header-verification.patch
+Patch2:		0002-Improve-684b7ac5.patch
+# fix mga#25698
+Patch10:	revert-upstream-CVE-2015-1197.patch
+Patch11:	suse-CVE-2015-1197.patch
+Patch20:	cpio-2.12-svr4compat.patch
+Patch21:	cpio-2.13-git-multiple-defs.patch
+Patch22:	cpio-2.13-CVE-2021-38185.patch
+Patch23:	dfc801c44a93bed7b3951905b188823d6a0432c8.patch
+Patch24:	236684f6deb3178043fe72a8e2faca538fa2aae1.patch
+
 BuildRequires:	bison
 BuildRequires:	texinfo
 Requires:	rmt
@@ -31,21 +38,20 @@ OpenMandriva Lx uses bsdcpio by default -- install gnucpio if you need
 the GNU implementation of cpio.
 
 %prep
-%setup -qn cpio-%{version}
-%autopatch -p1
+%autosetup -n cpio-%{version} -p1
 
 %build
 export CPPFLAGS="%{optflags} -DHAVE_LSTAT=1"
 %configure \
-	--with-rmt=/sbin/rmt
+	--with-rmt=%{_bindir}/rmt
 
-%make
+%make_build
 
 %check
 %make check
 
 %install
-%makeinstall_std
+%make_install
 
 %find_lang cpio
 
@@ -58,5 +64,5 @@ mv %{buildroot}%{_mandir}/man1/cpio.1 %{buildroot}%{_mandir}/man1/gcpio.1
 %files -f cpio.lang
 %doc AUTHORS ChangeLog README NEWS
 %{_bindir}/gcpio
-%{_infodir}/cpio.*
-%{_mandir}/man1/gcpio.1*
+%doc %{_infodir}/cpio.*
+%doc %{_mandir}/man1/gcpio.1*
