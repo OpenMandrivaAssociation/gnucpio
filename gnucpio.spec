@@ -4,7 +4,7 @@ Version:	2.13
 Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
-Url:		http://www.gnu.org/software/cpio/
+Url:		https://www.gnu.org/software/cpio/
 Source0:	ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2
 Patch0:		cpio-2.13-fix-clang.patch
 Patch1:		0001-Fix-cpio-header-verification.patch
